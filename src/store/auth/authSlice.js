@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  checking: true,
-  authenticaded: 'not-Authenticaded',
+  status: 'checking',
   user: {
-    name: '',
-    email: '',
-    uid: '',
+    name: null,
+    email: null,
+    uid: null,
+    displayName: null,
+    photoURL: null,
+    errorMessage: null,
   },
 };
 
@@ -14,13 +16,13 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    checking: state => {
-      state.checking = true;
-    },
+    login: (state, actions) => {},
+    logout: (state, payload) => {},
+    checkingCredentials: () => {},
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { checking } = authSlice.actions;
+export const { login, logout, checkingCredentials } = authSlice.actions;
 
 export default authSlice.reducer;

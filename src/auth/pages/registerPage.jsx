@@ -9,7 +9,7 @@ import facebookIcon from '../../assets/facebookIcon.jpg';
 import { en } from '../../i18n/index';
 import { useForm } from '../../hooks/useForm';
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
   const [emptyValues, setEmtyValues] = useState({
     state: false,
     message: en.errorEmptyInputMessage,
@@ -20,7 +20,7 @@ export const LoginPage = () => {
     password: '',
   });
 
-  const { email, password } = formValues;
+  const { email, password, password2 } = formValues;
 
   const getFormSubmit = e => {
     e.preventDefault();
@@ -55,12 +55,20 @@ export const LoginPage = () => {
       value: email,
     },
     {
-      label: en.inputLabelPassword,
+      label: en.passwordCreate,
       type: 'password',
       placeholder: en.inputPlaceHolderPasswrod,
       ariaLabel: 'userPassword',
       value: password,
       name: 'password',
+    },
+    {
+      label: en.repitePassword,
+      type: 'password',
+      placeholder: en.inputPlaceHolderPasswrod,
+      ariaLabel: 'userPassword',
+      value: password2,
+      name: 'password2',
     },
   ];
 
@@ -81,13 +89,21 @@ export const LoginPage = () => {
     ));
   };
 
+  const getLoginButton = () => {
+    return (
+      <button type="submit" className="w-80 btn btn-lg btn-primary button-Sign">
+        {en.registerButton}
+      </button>
+    );
+  };
+
   const getGoogleLogin = () => {
     return (
       <div
         onClick={handleGoogleLogin}
         className="loginGoogle mt-4 border border-primary rounded">
         <img src={googleIcon} width={40} height={40} alt="logo" />
-        <span>{en.loginButtonGoogle}</span>
+        <span>{en.registerGoogle}</span>
       </div>
     );
   };
@@ -98,24 +114,16 @@ export const LoginPage = () => {
         onClick={handleGoogleFacebookLogin}
         className="loginGoogle mt-4 border border-primary rounded">
         <img src={facebookIcon} width={45} height={40} alt="logo" />
-        <span>{en.loginButtonFacebook}</span>
+        <span>{en.registerFacebook}</span>
       </div>
-    );
-  };
-
-  const getLoginButton = () => {
-    return (
-      <button type="submit" className="w-80 btn btn-lg btn-primary button-Sign">
-        {en.signing}
-      </button>
     );
   };
 
   const getLinkToRegister = () => {
     return (
       <p className="linkGoToResgister">
-        <Link color="inherit" to="/auth/register">
-          {en.notHaveAccount}
+        <Link color="inherit" to="/auth/login">
+          {en.haveAccount}
         </Link>
       </p>
     );
@@ -145,7 +153,7 @@ export const LoginPage = () => {
     <div className="w-100 m-auto containerLogin">
       <form onSubmit={getFormSubmit}>
         {getLogo()}
-        <h1>{en.titleLogin}</h1>
+        <h1>{en.titleRegister}</h1>
         {emptyValues.state && getError()}
         {getFormInputs()}
         {getLoginButton()}

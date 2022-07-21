@@ -1,29 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './loginPage.css';
 
 import logoRaquet from '../../assets/raquetsLogo.jpg';
+import googleIcon from '../../assets/googleIcon.png';
+import facebookIcon from '../../assets/facebookIcon.jpg';
+
 import { en } from '../../i18n/index';
+import { useForm } from '../../hooks/useForm';
 
 export const LoginPage = () => {
+  const [emptyValues, setEmtyValues] = useState({
+    state: false,
+    message: en.errorEmptyInputMessage,
+  });
+
+  const [formValues, handleInputChange] = useForm({
+    email: '',
+    password: '',
+  });
+
+  const { email, password } = formValues;
+
   const getFormSubmit = e => {
     e.preventDefault();
-    console.log('soy el submit');
+    console.log('me ejecuto');
+    validationEmptyFields();
+    console.log(formValues);
   };
+
+  const handleGoogleLogin = () => {
+    console.log('me he pulsado google');
+  };
+
+  const handleGoogleFacebookLogin = () => {
+    console.log('me han pulsado Facebook');
+  };
+
+  const validationEmptyFields = () => {
+    email === '' || password === ''
+      ? setEmtyValues({ state: true, message: en.errorEmptyInputMessage })
+      : setEmtyValues({ state: false, message: en.errorEmptyInputMessage });
+  };
+
+  console.log(emptyValues);
 
   const inputsForm = [
     {
       label: en.inputLabelUser,
-      type: 'text',
+      type: 'email',
       placeholder: en.inputPlaceHolderMail,
-      ariaLabel: 'userName',
-      ariaDescribedby: 'user-login',
+      ariaLabel: 'userEmail',
+      name: 'email',
+      value: email,
     },
     {
       label: en.inputLabelPassword,
       type: 'password',
       placeholder: en.inputPlaceHolderPasswrod,
       ariaLabel: 'userPassword',
-      ariaDescribedby: 'user-password',
+      value: password,
+      name: 'password',
     },
   ];
 
@@ -33,10 +69,12 @@ export const LoginPage = () => {
         <label>{input.label}</label>
         <input
           className="form-control"
+          name={input.name}
           type={input.type}
           placeholder={input.placeholder}
           aria-label={input.ariaLabel}
-          aria-ariaDescribedby={input.ariaDescribedby}
+          value={input.value}
+          onChange={handleInputChange}
         />
       </div>
     ));
@@ -47,6 +85,14 @@ export const LoginPage = () => {
       <button type="submit" className="w-80 btn btn-lg btn-primary button-Sign">
         {en.signing}
       </button>
+    );
+  };
+
+  const getError = () => {
+    return (
+      <div className="alert alert-danger" role="alert">
+        {emptyValues.state && emptyValues.message}
+      </div>
     );
   };
 
@@ -62,12 +108,38 @@ export const LoginPage = () => {
     );
   };
 
+  const getGoogleLogin = () => {
+    return (
+      <div
+        onClick={handleGoogleLogin}
+        className="loginGoogle mt-4 border border-primary rounded">
+        <img src={googleIcon} width={40} height={40} alt="logo" />
+        <span>{en.loginButtonGoogle}</span>
+      </div>
+    );
+  };
+
+  const getFacebookLogin = () => {
+    return (
+      <div
+        onClick={handleGoogleFacebookLogin}
+        className="loginGoogle mt-4 border border-primary rounded">
+        <img src={facebookIcon} width={45} height={40} alt="logo" />
+        <span>{en.loginButtonFacebook}</span>
+      </div>
+    );
+  };
+
   return (
     <div className="w-100 m-auto containerLogin">
       <form onSubmit={getFormSubmit}>
         {getLogo()}
         <h1>{en.titleLogin}</h1>
+        {emptyValues.state && getError()}
         {getFormInputs()}
+        <p className="chooseLogin">{en.chooseLogin}</p>
+        {getGoogleLogin()}
+        {getFacebookLogin()}
         {getLoginButton()}
       </form>
     </div>

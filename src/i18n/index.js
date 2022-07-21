@@ -6,4 +6,8 @@ export const en = {
   inputPlaceHolderMail: 'user email',
   inputPlaceHolderPasswrod: 'user pasword',
   inputLabelPassword: 'Write your password',
+  errorEmptyInputMessage: 'The inputs are empty',
+  loginButtonGoogle: 'Login With Google',
+  loginButtonFacebook: 'Login With Facebook',
+  chooseLogin: 'Or',
 };

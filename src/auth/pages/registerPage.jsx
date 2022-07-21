@@ -66,7 +66,7 @@ export const RegisterPage = () => {
       label: en.repitePassword,
       type: 'password',
       placeholder: en.inputPlaceHolderPasswrod,
-      ariaLabel: 'userPassword',
+      ariaLabel: 'userPassword2',
       value: password2,
       name: 'password2',
     },

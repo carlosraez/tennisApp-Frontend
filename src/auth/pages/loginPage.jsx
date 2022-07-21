@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux/es/exports';
 import './loginPage.css';
 
 import logoRaquet from '../../assets/raquetsLogo.jpg';
@@ -8,6 +9,7 @@ import facebookIcon from '../../assets/facebookIcon.jpg';
 
 import { en } from '../../i18n/index';
 import { useForm } from '../../hooks/useForm';
+import { checkingAuthentication } from '../../store/auth/thunk';
 
 export const LoginPage = () => {
   const [emptyValues, setEmtyValues] = useState({
@@ -22,15 +24,17 @@ export const LoginPage = () => {
 
   const { email, password } = formValues;
 
+  const dispacht = useDispatch();
+
   const getFormSubmit = e => {
     e.preventDefault();
-    console.log('me ejecuto');
     validationEmptyFields();
-    console.log(formValues);
+    dispacht(checkingAuthentication());
   };
 
   const handleGoogleLogin = () => {
     console.log('me he pulsado google');
+    dispacht(checkingAuthentication(formValues));
   };
 
   const handleGoogleFacebookLogin = () => {
@@ -42,8 +46,6 @@ export const LoginPage = () => {
       ? setEmtyValues({ state: true, message: en.errorEmptyInputMessage })
       : setEmtyValues({ state: false, message: en.errorEmptyInputMessage });
   };
-
-  console.log(emptyValues);
 
   const inputsForm = [
     {

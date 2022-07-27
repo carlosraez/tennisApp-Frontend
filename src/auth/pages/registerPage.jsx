@@ -1,32 +1,107 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import './loginPage.css';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import './auth.css';
 
 import logoRaquet from '../../assets/raquetsLogo.jpg';
 import googleIcon from '../../assets/googleIcon.png';
 import facebookIcon from '../../assets/facebookIcon.jpg';
 
 import { en } from '../../i18n/index';
-import { useForm } from '../../hooks/useForm';
+import { checkingRegisterAuthentication } from '../../store/auth/thunk';
 
 export const RegisterPage = () => {
-  const [emptyValues, setEmtyValues] = useState({
-    state: false,
-    message: en.errorEmptyInputMessage,
+  const [formValid, setFormValid] = useState(false);
+  const [formValues, setFormValues] = useState({
+    name:'',
+    email:'',
+    password:'',
+    confirmPassword:''
   });
+  const [focused, setfocused] = useState(false)
 
-  const [formValues, handleInputChange] = useForm({
-    email: '',
-    password: '',
-  });
+  const dispatch = useDispatch();
+  const inputRef = useRef();
+  
+  const { errorMessage } = useSelector(state => state.auth);
 
-  const { email, password, password2 } = formValues;
+  const {name, email, password, confirmPassword } = formValues;
 
+  const handleInputChange = ({ target }) => { 
+    setFormValues({
+      ...formValues,
+      [target.name]: target.value,
+    });
+  };
+
+  const handleFocus = () => { 
+     setfocused(true)
+  }
+
+   useEffect(() => {
+   formValidations()
+   }, [email, name, password, confirmPassword]);
+
+  const inputsForm = [
+    {
+      label: en.inputLabelUserName,
+      type: 'text',
+      required: true,
+      placeholder: en.inputPlaceHolderUserName,
+      ariaLabel: 'userName',
+      name: 'name',
+      value: name,
+      errorMessage: en.errorInputName,
+      required: true,
+      pattern: '^[a-zA-Z\-]{3,15}',
+    },
+    {
+      label: en.inputLabelUser,
+      type: 'email',
+      required: true,
+      placeholder: en.inputPlaceHolderMail,
+      ariaLabel: 'userEmail',
+      name: 'email',
+      value: email,
+      errorMessage: en.errorInputEmail,
+      required: true,
+    },
+    {
+      label: en.passwordCreate,
+      type: 'password',
+      placeholder: en.inputPlaceHolderPasswrod,
+      ariaLabel: 'userPassword',
+      value: password,
+      required: true,
+      errorMessage: en.errorInputPassword,
+      pattern: '^[0-9]{3,6}/*$',
+      name: 'password',
+    },
+    {
+      label: en.repitePassword,
+      type: 'password',
+      placeholder: en.inputPlaceHolderPasswrod,
+      ariaLabel: 'confirmPassword',
+      value: confirmPassword,
+      errorMessage: en.errorInputConfirmPassword,
+      pattern: password,
+      name: 'confirmPassword',
+    },
+  ];
+ 
+ const formValidations = () => {
+  const form = inputRef.current
+  const inputsInvalid = form.querySelectorAll('input:invalid');
+  if (inputsInvalid.length <= 0 && errorMessage === null) {
+       setFormValid(true);
+  }
+ }
+  
   const getFormSubmit = e => {
     e.preventDefault();
-    console.log('me ejecuto');
-    validationEmptyFields();
-    console.log(formValues);
+    if (formValid) {
+     dispatch(checkingRegisterAuthentication(formValues));
+     }
   };
 
   const handleGoogleLogin = () => {
@@ -36,41 +111,6 @@ export const RegisterPage = () => {
   const handleGoogleFacebookLogin = () => {
     console.log('me han pulsado Facebook');
   };
-
-  const validationEmptyFields = () => {
-    email === '' || password === ''
-      ? setEmtyValues({ state: true, message: en.errorEmptyInputMessage })
-      : setEmtyValues({ state: false, message: en.errorEmptyInputMessage });
-  };
-
-  console.log(emptyValues);
-
-  const inputsForm = [
-    {
-      label: en.inputLabelUser,
-      type: 'email',
-      placeholder: en.inputPlaceHolderMail,
-      ariaLabel: 'userEmail',
-      name: 'email',
-      value: email,
-    },
-    {
-      label: en.passwordCreate,
-      type: 'password',
-      placeholder: en.inputPlaceHolderPasswrod,
-      ariaLabel: 'userPassword',
-      value: password,
-      name: 'password',
-    },
-    {
-      label: en.repitePassword,
-      type: 'password',
-      placeholder: en.inputPlaceHolderPasswrod,
-      ariaLabel: 'userPassword2',
-      value: password2,
-      name: 'password2',
-    },
-  ];
 
   const getFormInputs = () => {
     return inputsForm.map(input => (
@@ -83,15 +123,20 @@ export const RegisterPage = () => {
           placeholder={input.placeholder}
           aria-label={input.ariaLabel}
           value={input.value}
-          onChange={handleInputChange}
+          onChange={handleInputChange }
+          onBlur={handleFocus}
+          focused={focused.toString()}
+          pattern={input.pattern}
+          required
         />
+        <span>{input.errorMessage}</span>
       </div>
     ));
   };
 
   const getLoginButton = () => {
     return (
-      <button type="submit" className="w-80 btn btn-lg btn-primary button-Sign">
+      <button disabled={!formValid} type="submit" className="w-80 btn btn-lg btn-primary button-Sign">
         {en.registerButton}
       </button>
     );
@@ -129,10 +174,12 @@ export const RegisterPage = () => {
     );
   };
 
-  const getError = () => {
+  const getError = (msg) => {
     return (
-      <div className="alert alert-danger" role="alert">
-        {emptyValues.state && emptyValues.message}
+      <div>
+        <div className="alert alert-danger" role="alert">
+           {msg}
+        </div>
       </div>
     );
   };
@@ -142,26 +189,38 @@ export const RegisterPage = () => {
       <img
         className="mb-4"
         src={logoRaquet}
-        width={250}
+        width={200}
         height={200}
         alt="logo"
       />
     );
   };
-
+  
   return (
     <div className="w-100 m-auto containerLogin">
-      <form onSubmit={getFormSubmit}>
-        {getLogo()}
-        <h1>{en.titleRegister}</h1>
-        {emptyValues.state && getError()}
-        {getFormInputs()}
-        {getLoginButton()}
-        <p className="chooseLogin">{en.chooseLogin}</p>
-        {getGoogleLogin()}
-        {getFacebookLogin()}
-        {getLinkToRegister()}
+      <form ref={inputRef} onSubmit={getFormSubmit}>
+        <div className='container'>
+          <div className='row'> 
+          <div className='col-4'>
+           {errorMessage && getError(errorMessage)}
+           {getFormInputs()}
+           {getLoginButton()}
+          </div>
+          <div className='col-4'>
+            <h1>{en.titleRegister}</h1>
+            {getLogo()}
+            <p className="chooseLogin">{en.chooseLogin}</p>
+            {getLinkToRegister()}
+          </div>
+          <div className='col-4'>
+          {getGoogleLogin()}
+          {getFacebookLogin()}
+          </div>
+        </div>
+        </div>
       </form>
     </div>
   );
 };
+
+

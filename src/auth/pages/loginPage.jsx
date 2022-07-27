@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux/es/exports';
-import './loginPage.css';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import './auth.css';
 
 import logoRaquet from '../../assets/raquetsLogo.jpg';
 import googleIcon from '../../assets/googleIcon.png';
 import facebookIcon from '../../assets/facebookIcon.jpg';
 
 import { en } from '../../i18n/index';
-import { useForm } from '../../hooks/useForm';
-import { checkingAuthentication } from '../../store/auth/thunk';
+import { checkingLoginAuthentication, checkingGoogleAuthentication } from '../../store/auth/thunk';
 
 export const LoginPage = () => {
   const [emptyValues, setEmtyValues] = useState({
@@ -23,18 +22,19 @@ export const LoginPage = () => {
   });
 
   const { email, password } = formValues;
+  const { errorMessage } = useSelector(state => state.auth);
 
-  const dispacht = useDispatch();
+  const dispatch = useDispatch();
 
   const getFormSubmit = e => {
     e.preventDefault();
     validationEmptyFields();
-    dispacht(checkingAuthentication());
+    dispatch(checkingLoginAuthentication(formValues));
   };
 
   const handleGoogleLogin = () => {
     console.log('me he pulsado google');
-    dispacht(checkingAuthentication(formValues));
+    dispatch(checkingGoogleAuthentication());
   };
 
   const handleGoogleFacebookLogin = () => {
@@ -122,11 +122,11 @@ export const LoginPage = () => {
       </p>
     );
   };
-
-  const getError = () => {
+  
+  const getError = (msg) => {
     return (
       <div className="alert alert-danger" role="alert">
-        {emptyValues.state && emptyValues.message}
+        {msg}
       </div>
     );
   };
@@ -137,7 +137,7 @@ export const LoginPage = () => {
         className="mb-4"
         src={logoRaquet}
         width={250}
-        height={200}
+        height={250}
         alt="logo"
       />
     );
@@ -146,15 +146,23 @@ export const LoginPage = () => {
   return (
     <div className="w-100 m-auto containerLogin">
       <form onSubmit={getFormSubmit}>
+      <div className='container'>
+          <div className='row'> 
+          <div className='col-xs-12 col-md-6'>
         {getLogo()}
+        </div>
+        <div className='col-xs-12 col-md-6'>
         <h1>{en.titleLogin}</h1>
-        {emptyValues.state && getError()}
+        {emptyValues.state && getError(emptyValues.message) || errorMessage && getError(errorMessage)}
         {getFormInputs()}
         {getLoginButton()}
         <p className="chooseLogin">{en.chooseLogin}</p>
         {getGoogleLogin()}
         {getFacebookLogin()}
         {getLinkToRegister()}
+         </div>
+        </div>
+        </div>
       </form>
     </div>
   );

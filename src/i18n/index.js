@@ -6,7 +6,6 @@ export const en = {
   inputPlaceHolderMail: 'user email',
   inputPlaceHolderPasswrod: 'user pasword',
   inputLabelPassword: 'Write your password',
-  errorEmptyInputMessage: 'The inputs are empty',
   loginButtonGoogle: 'Login With Google',
   loginButtonFacebook: 'Login With Facebook',
   chooseLogin: 'Or',
@@ -18,4 +17,10 @@ export const en = {
   titleRegister: 'Register now in Tennis App',
   passwordCreate: 'Create your password',
   registerButton: 'Register Button',
+  inputLabelUserName: 'Write your Name',
+  inputPlaceHolderUserName: 'user name',
+  errorInputName: 'Username should be 3-16 characters and shouldn`t include any special character',
+  errorInputEmail: 'Email should be valid',
+  errorInputPassword: 'Password should be 3-6 number characters',
+  errorInputConfirmPassword: 'Password doesn`t match',
 };

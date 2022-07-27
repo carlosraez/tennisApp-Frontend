@@ -3,6 +3,7 @@ import { AuthRoutes } from '../auth/authRoutes';
 import { Players } from '../players/pages/players';
 
 export const AppRouter = () => {
+
   return (
     <Routes>
       <Route path="/auth/*" element={<AuthRoutes />} />

@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux/es/exports';
 import './auth.css';
 
 import logoRaquet from '../../assets/raquetsLogo.jpg';
-import googleIcon from '../../assets/googleIcon.png';
-import facebookIcon from '../../assets/facebookIcon.jpg';
 
 import { en } from '../../i18n/index';
 import { checkingRegisterAuthentication } from '../../store/auth/thunk';
@@ -104,14 +102,6 @@ export const RegisterPage = () => {
      }
   };
 
-  const handleGoogleLogin = () => {
-    console.log('me he pulsado google');
-  };
-
-  const handleGoogleFacebookLogin = () => {
-    console.log('me han pulsado Facebook');
-  };
-
   const getFormInputs = () => {
     return inputsForm.map(input => (
       <div key={input.ariaLabel}>
@@ -139,28 +129,6 @@ export const RegisterPage = () => {
       <button disabled={!formValid} type="submit" className="w-80 btn btn-lg btn-primary button-Sign">
         {en.registerButton}
       </button>
-    );
-  };
-
-  const getGoogleLogin = () => {
-    return (
-      <div
-        onClick={handleGoogleLogin}
-        className="loginGoogle mt-4 border border-primary rounded">
-        <img src={googleIcon} width={40} height={40} alt="logo" />
-        <span>{en.registerGoogle}</span>
-      </div>
-    );
-  };
-
-  const getFacebookLogin = () => {
-    return (
-      <div
-        onClick={handleGoogleFacebookLogin}
-        className="loginGoogle mt-4 border border-primary rounded">
-        <img src={facebookIcon} width={45} height={40} alt="logo" />
-        <span>{en.registerFacebook}</span>
-      </div>
     );
   };
 
@@ -201,20 +169,16 @@ export const RegisterPage = () => {
       <form ref={inputRef} onSubmit={getFormSubmit}>
         <div className='container'>
           <div className='row'> 
-          <div className='col-4'>
+          <div className='col-6'>
            {errorMessage && getError(errorMessage)}
            {getFormInputs()}
            {getLoginButton()}
           </div>
-          <div className='col-4'>
+          <div className='col-6'>
             <h1>{en.titleRegister}</h1>
             {getLogo()}
             <p className="chooseLogin">{en.chooseLogin}</p>
             {getLinkToRegister()}
-          </div>
-          <div className='col-4'>
-          {getGoogleLogin()}
-          {getFacebookLogin()}
           </div>
         </div>
         </div>

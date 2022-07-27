@@ -145,12 +145,12 @@ export const LoginPage = () => {
       <form ref={inputRef} onSubmit={getFormSubmit}>
         <div className='container'>
           <div className='row'> 
-          <div className='col-6'>
+          <div className='col-xs-100 col-md-6'>
            {errorMessage && getError(errorMessage)}
            {getFormInputs()}
            {getLoginButton()}
           </div>
-          <div className='col-6'>
+          <div className='col-xs-100 col-md-6'>
             <h1>{en.titleRegister}</h1>
             {getLogo()}
             <p className="chooseLogin">{en.chooseLogin}</p>

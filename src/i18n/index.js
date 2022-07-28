@@ -1,6 +1,6 @@
 /**
  * returns the translation for the given key
- * @return {object} key
+ * @return {object} 
  */
 export const en = {
   email: 'email',

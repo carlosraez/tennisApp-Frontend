@@ -23,7 +23,11 @@ export const LoginPage = () => {
   const { errorMessage } = useSelector(state => state.auth);
 
   const { email, password } = formValues;
-
+  
+   /**
+   * @description - This function is used to handle the input change
+   * @returns {void} 
+   */
   const handleInputChange = ({ target }) => { 
     setFormValues({
       ...formValues,
@@ -31,6 +35,10 @@ export const LoginPage = () => {
     });
   };
 
+  /**
+   * @description - This function is used put the focus on the input when the page is loaded and load errors messages
+   * @returns {void}
+   */
   const handleFocus = () => { 
      setfocused(true)
   }
@@ -40,6 +48,11 @@ export const LoginPage = () => {
    timeCheckingMessage()
    }, [email, password,]);
 
+   /**
+    * @description - This function is used to time the message of the error
+    * received from the server.
+    * @returns {void}
+    */
    const timeCheckingMessage = () => {
       if (errorMessage) {
        const msg = ''

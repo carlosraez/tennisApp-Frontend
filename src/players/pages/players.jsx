@@ -1,8 +1,9 @@
 import React from 'react';
-import { Navbar } from './components/navbar';
+
 
 export const Players = () => {
-  return <div>
-    <Navbar />
+  return 
+  <div>
+    <p>players</p>
   </div>;
 };

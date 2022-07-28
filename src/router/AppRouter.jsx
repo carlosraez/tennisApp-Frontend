@@ -3,11 +3,11 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 
 import { AuthRoutes } from '../auth/authRoutes';
-import { Players } from '../players/pages/players';
+import { PlayersRoutes } from '../players/playersRoutes';
 import { checkAuthToken  } from '../store/auth/thunk';
 
 import { en } from '../i18n';
-import { Navbar } from '../players/pages/components/navbar';
+
 
 export const AppRouter = () => {
   
@@ -42,7 +42,7 @@ export const AppRouter = () => {
       {
        status === 'authenticated' ? 
        
-      <Route path="/*" element={<Players />} />
+        <Route path="/*" element={<PlayersRoutes />} />
         : 
         <Route path="/auth/*" element={<AuthRoutes />} />
        }

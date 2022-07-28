@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 
-import tennisAppLogo from '../../../assets/raquetsLogo.jpg';
-import { en } from '../../../i18n';
-import { onLogout } from '../../../store/auth/authSlice';
+import tennisAppLogo from '../../assets/raquetsLogo.jpg';
+import { en } from '../../i18n';
+import { onLogout } from '../../store/auth/authSlice';
 
 
 

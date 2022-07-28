@@ -29,4 +29,5 @@ export const en = {
   errorInputConfirmPassword: 'Password doesn`t match',
   loaderMessage: 'Loading...',
   titleLogin: 'Login now',
+  logoutTextButton: 'Logout',
 };

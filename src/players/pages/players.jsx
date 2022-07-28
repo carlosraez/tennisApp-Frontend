@@ -1,5 +1,8 @@
 import React from 'react';
+import { Navbar } from './components/navbar';
 
 export const Players = () => {
-  return <div>P</div>;
+  return <div>
+    <Navbar />
+  </div>;
 };

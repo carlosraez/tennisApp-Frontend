@@ -42,7 +42,7 @@ export const AppRouter = () => {
       {
        status === 'authenticated' ? 
        
-       <><Navbar /><Route path="/*" element={<Players />} /></>
+      <Route path="/*" element={<Players />} />
         : 
         <Route path="/auth/*" element={<AuthRoutes />} />
        }

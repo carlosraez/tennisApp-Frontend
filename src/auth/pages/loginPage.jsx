@@ -98,7 +98,10 @@ export const LoginPage = () => {
  const formValidations = () => {
   const form = inputRef.current
   const inputsInvalid = form.querySelectorAll('input:invalid');
-  if (inputsInvalid.length <= 0 && errorMessage === null) {
+  console.log(inputsInvalid.length);
+  console.log(errorMessage);
+  if (inputsInvalid.length <= 0 && errorMessage === null || errorMessage === '') {
+    console.log('me ejecut');
        setFormValid(true);
   }
  }

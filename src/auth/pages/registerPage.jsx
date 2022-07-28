@@ -121,7 +121,7 @@ export const RegisterPage = () => {
  const formValidations = () => {
   const form = inputRef.current
   const inputsInvalid = form.querySelectorAll('input:invalid');
-  if (inputsInvalid.length <= 0 && errorMessage === null) {
+  if (inputsInvalid.length <= 0 && errorMessage === null || errorMessage === '') {
        setFormValid(true);
   }
  }

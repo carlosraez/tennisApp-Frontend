@@ -7,6 +7,7 @@ import { Players } from '../players/pages/players';
 import { checkAuthToken  } from '../store/auth/thunk';
 
 import { en } from '../i18n';
+import { Navbar } from '../players/pages/components/navbar';
 
 export const AppRouter = () => {
   
@@ -40,7 +41,8 @@ export const AppRouter = () => {
     <Routes>
       {
        status === 'authenticated' ? 
-       <Route path="/*" element={ <Players /> } />
+       
+       <><Navbar /><Route path="/*" element={<Players />} /></>
         : 
         <Route path="/auth/*" element={<AuthRoutes />} />
        }

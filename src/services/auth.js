@@ -27,4 +27,15 @@ const  data = await resp.json()
 return data
 }
  
+export const renewTokenApi = async (token) => { 
+  const resp = await  fetch(`${VITE_API_URL}auth/renewtoken`,{
+    method: 'Get',
+    headers:{
+      'Content-Type': 'application/json',
+      "x-token": token,
+    } 
+})
+const  data = await resp.json()
+return data
+}
       

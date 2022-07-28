@@ -23,4 +23,5 @@ export const en = {
   errorInputEmail: 'Email should be valid',
   errorInputPassword: 'Password should be 3-6 number characters',
   errorInputConfirmPassword: 'Password doesn`t match',
+  loaderMessage: 'Loading...',
 };

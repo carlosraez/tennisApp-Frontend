@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
+
 import './auth.css';
-
 import logoRaquet from '../../assets/raquetsLogo.jpg';
-
 import { en } from '../../i18n/index';
 import { checkingRegisterAuthentication } from '../../store/auth/thunk';
+import { InputsForm } from '../components/inputsForm';
 
 export const RegisterPage = () => {
   const [formValid, setFormValid] = useState(false);
@@ -38,9 +38,19 @@ export const RegisterPage = () => {
 
    useEffect(() => {
    formValidations()
+   timeCheckingMessage()
    }, [email, name, password, confirmPassword]);
 
-  const inputsForm = [
+   const timeCheckingMessage = () => {
+    if (errorMessage) {
+     const msg = ''
+      setTimeout(() => {
+        dispatch(checkingCredentials(msg));
+      }, 3000);
+     }
+   }
+
+  const inputsFormRegister = [
     {
       label: en.inputLabelUserName,
       type: 'text',
@@ -86,7 +96,7 @@ export const RegisterPage = () => {
       name: 'confirmPassword',
     },
   ];
- 
+  
  const formValidations = () => {
   const form = inputRef.current
   const inputsInvalid = form.querySelectorAll('input:invalid');
@@ -103,25 +113,13 @@ export const RegisterPage = () => {
   };
 
   const getFormInputs = () => {
-    return inputsForm.map(input => (
-      <div key={input.ariaLabel}>
-        <label>{input.label}</label>
-        <input
-          className="form-control"
-          name={input.name}
-          type={input.type}
-          placeholder={input.placeholder}
-          aria-label={input.ariaLabel}
-          value={input.value}
-          onChange={handleInputChange }
-          onBlur={handleFocus}
-          focused={focused.toString()}
-          pattern={input.pattern}
-          required
-        />
-        <span>{input.errorMessage}</span>
-      </div>
-    ));
+    return (
+      <InputsForm 
+       inputsFormLogin={inputsFormRegister}  
+       handleInputChange={handleInputChange}
+       handleFocus={handleFocus}
+       focused={focused}
+      />)
   };
 
   const getLoginButton = () => {
@@ -171,7 +169,7 @@ export const RegisterPage = () => {
           <div className='row'> 
           <div className='col-xs-100 col-md-6'>
            {errorMessage && getError(errorMessage)}
-           {getFormInputs()}
+           {getFormInputs() }
            {getLoginButton()}
           </div>
           <div className='col-xs-100 col-md-6'>

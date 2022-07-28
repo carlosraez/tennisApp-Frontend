@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
+
 import './auth.css';
-
 import logoRaquet from '../../assets/raquetsLogo.jpg';
-
 import { en } from '../../i18n/index';
 import { checkingLoginAuthentication } from '../../store/auth/thunk';
+import { checkingCredentials } from '../../store/auth/authSlice';
+import { InputsForm } from '../components/inputsForm';
 
 export const LoginPage = () => {
   const [formValid, setFormValid] = useState(false);
@@ -36,9 +37,19 @@ export const LoginPage = () => {
 
    useEffect(() => {
    formValidations()
+   timeCheckingMessage()
    }, [email, password,]);
 
-  const inputsForm = [
+   const timeCheckingMessage = () => {
+      if (errorMessage) {
+       const msg = ''
+        setTimeout(() => {
+          dispatch(checkingCredentials(msg));
+        }, 3000);
+       }
+   }
+  
+  const inputsFormLogin = [
     {
       label: en.inputLabelUser,
       type: 'email',
@@ -79,31 +90,19 @@ export const LoginPage = () => {
 };
 
   const getFormInputs = () => {
-    return inputsForm.map(input => (
-      <div key={input.ariaLabel}>
-        <label>{input.label}</label>
-        <input
-          className="form-control"
-          name={input.name}
-          type={input.type}
-          placeholder={input.placeholder}
-          aria-label={input.ariaLabel}
-          value={input.value}
-          onChange={handleInputChange }
-          onBlur={handleFocus}
-          focused={focused.toString()}
-          pattern={input.pattern}
-          required
-        />
-        <span>{input.errorMessage}</span>
-      </div>
-    ));
+    return (
+    <InputsForm 
+     inputsFormLogin={inputsFormLogin}  
+     handleInputChange={handleInputChange}
+     handleFocus={handleFocus}
+     focused={focused}
+    />)
   };
 
   const getLoginButton = () => {
     return (
       <button disabled={!formValid} type="submit" className="w-80 btn btn-lg btn-primary button-Sign">
-        {en.registerButton}
+        {en.titleLogin}
       </button>
     );
   };

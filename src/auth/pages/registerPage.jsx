@@ -74,7 +74,6 @@ export const RegisterPage = () => {
     {
       label: en.inputLabelUserName,
       type: 'text',
-      required: true,
       placeholder: en.inputPlaceHolderUserName,
       ariaLabel: 'userName',
       name: 'name',
@@ -85,7 +84,6 @@ export const RegisterPage = () => {
     {
       label: en.inputLabelUser,
       type: 'email',
-      required: true,
       placeholder: en.inputPlaceHolderMail,
       ariaLabel: 'userEmail',
       name: 'email',

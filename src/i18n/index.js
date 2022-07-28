@@ -1,3 +1,7 @@
+/**
+ * returns the translation for the given key
+ * @return {object} key
+ */
 export const en = {
   email: 'email',
   titleLogin: 'Tennis App',

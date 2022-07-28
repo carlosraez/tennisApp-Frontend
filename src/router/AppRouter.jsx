@@ -17,6 +17,10 @@ export const AppRouter = () => {
     dispatch(checkAuthToken());
   }, [])
 
+  /**
+   * @description - This function is used to render a spinner loading when the user is checking the token
+   * @returns {jsx} 
+   */
   const getSpinner = () => { 
     return (
       <div className="d-flex justify-content-center">
@@ -27,6 +31,10 @@ export const AppRouter = () => {
     );
   }
 
+  /**
+   * @describe - render app routes depending on the status of the user
+   * @returns {jsx}
+   */
   const getRoutes = () => {
    return (
     <Routes>

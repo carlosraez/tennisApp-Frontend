@@ -49,6 +49,10 @@ export const LoginPage = () => {
        }
    }
   
+  /**
+   * data inputsFormLogin 
+   * @type {Array}
+   */
   const inputsFormLogin = [
     {
       label: en.inputLabelUser,
@@ -74,6 +78,10 @@ export const LoginPage = () => {
     },
   ];
  
+ /**
+  * FormValid - checks if the form is valid
+  * @returns {void}
+  */
  const formValidations = () => {
   const form = inputRef.current
   const inputsInvalid = form.querySelectorAll('input:invalid');
@@ -82,6 +90,11 @@ export const LoginPage = () => {
   }
  }
   
+ /**
+  * Dispacht Login authentication
+  * @param {e} e event to prevent default
+  * @returns {void} dispatch checkingLoginAuthentication
+  */
  const getFormSubmit = e => {
   e.preventDefault();
   if (formValid) {
@@ -89,6 +102,10 @@ export const LoginPage = () => {
   }
 };
 
+   /**
+   * InputsForm Login
+   * @returns {JSX.Element}
+   */
   const getFormInputs = () => {
     return (
     <InputsForm 
@@ -99,6 +116,10 @@ export const LoginPage = () => {
     />)
   };
 
+   /**
+   * Button submit
+   * @returns {JSX.Element}
+   */
   const getLoginButton = () => {
     return (
       <button disabled={!formValid} type="submit" className="w-80 btn btn-lg btn-primary button-Sign">
@@ -107,6 +128,11 @@ export const LoginPage = () => {
     );
   };
 
+  
+  /**
+   * Link to register page
+   * @returns {JSX.Element}
+   */
   const getLinkToLogin = () => {
     return (
       <p className="linkGoToResgister">
@@ -117,6 +143,10 @@ export const LoginPage = () => {
     );
   };
 
+  /**
+   * Error message if user is not registered or has wrong credentials
+   * @returns {JSX.Element}
+   */
   const getError = (msg) => {
     return (
       <div>
@@ -127,6 +157,10 @@ export const LoginPage = () => {
     );
   };
 
+  /**
+   * Logo of the application
+   * @returns {JSX.Element}
+   */
   const getLogo = () => {
     return (
       <img

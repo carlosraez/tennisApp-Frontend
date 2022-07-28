@@ -2,6 +2,11 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { LoginPage } from './pages';
 import { RegisterPage } from './pages/registerPage';
 
+
+/**
+* @description - This function is used to render the login page routes
+* @returns {void}
+*/
 export const AuthRoutes = () => {
   return (
     <Routes>

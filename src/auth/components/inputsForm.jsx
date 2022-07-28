@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
 export const InputsForm = ({ inputsFormLogin, focused,handleInputChange, handleFocus }) => {
     return inputsFormLogin.map(input => (
@@ -21,3 +22,10 @@ export const InputsForm = ({ inputsFormLogin, focused,handleInputChange, handleF
         </div>
       ));
 }
+
+InputsForm.propTypes = {
+  inputsFormLogin: PropTypes.array,
+  focused: PropTypes.bool,
+  handleInputChange: PropTypes.func,
+  handleFocus: PropTypes.func,
+};

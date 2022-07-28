@@ -25,6 +25,10 @@ export const RegisterPage = () => {
 
   const {name, email, password, confirmPassword } = formValues;
 
+  /**
+   * @description - This function is used to handle the input change
+   * @returns {void} 
+   */
   const handleInputChange = ({ target }) => { 
     setFormValues({
       ...formValues,
@@ -32,6 +36,10 @@ export const RegisterPage = () => {
     });
   };
 
+  /**
+   * @description - This function is used put the focus on the input when the page is loaded and load errors messages
+   * @returns {void}
+   */
   const handleFocus = () => { 
      setfocused(true)
   }
@@ -41,6 +49,11 @@ export const RegisterPage = () => {
    timeCheckingMessage()
    }, [email, name, password, confirmPassword]);
 
+    /**
+    * @description - This function is used to time the message of the error
+    * received from the server.
+    * @returns {void}
+    */
    const timeCheckingMessage = () => {
     if (errorMessage) {
      const msg = ''
@@ -50,6 +63,10 @@ export const RegisterPage = () => {
      }
    }
 
+  /**
+  * data inputsFormRegister 
+  * @type {Array}
+  */
   const inputsFormRegister = [
     {
       label: en.inputLabelUserName,
@@ -96,7 +113,11 @@ export const RegisterPage = () => {
       name: 'confirmPassword',
     },
   ];
-  
+
+ /**
+  * FormValid - checks if the form is valid
+  * @returns {void}
+  */
  const formValidations = () => {
   const form = inputRef.current
   const inputsInvalid = form.querySelectorAll('input:invalid');
@@ -105,6 +126,11 @@ export const RegisterPage = () => {
   }
  }
   
+  /**
+  * Dispacht Register authentication
+  * @param {e} e event to prevent default
+  * @returns {void} dispatch checkingLoginAuthentication
+  */
   const getFormSubmit = e => {
     e.preventDefault();
     if (formValid) {
@@ -112,6 +138,10 @@ export const RegisterPage = () => {
      }
   };
 
+  /**
+   * InputsForm Login
+   * @returns {JSX.Element}
+   */
   const getFormInputs = () => {
     return (
       <InputsForm 
@@ -122,6 +152,10 @@ export const RegisterPage = () => {
       />)
   };
 
+  /**
+  * Button submit
+  * @returns {JSX.Element}
+  */
   const getLoginButton = () => {
     return (
       <button disabled={!formValid} type="submit" className="w-80 btn btn-lg btn-primary button-Sign">
@@ -130,7 +164,11 @@ export const RegisterPage = () => {
     );
   };
 
-  const getLinkToRegister = () => {
+  /**
+  * Link to register page
+  * @returns {JSX.Element}
+  */
+  const getLinkToLogin = () => {
     return (
       <p className="linkGoToResgister">
         <Link color="inherit" to="/auth/login">
@@ -140,6 +178,10 @@ export const RegisterPage = () => {
     );
   };
 
+  /**
+  * Error message if user is not registered or has wrong credentials
+  * @returns {JSX.Element}
+  */
   const getError = (msg) => {
     return (
       <div>
@@ -150,6 +192,10 @@ export const RegisterPage = () => {
     );
   };
 
+  /**
+  * Logo of the application
+  * @returns {JSX.Element}
+  */
   const getLogo = () => {
     return (
       <img
@@ -176,7 +222,7 @@ export const RegisterPage = () => {
             <h1>{en.titleRegister}</h1>
             {getLogo()}
             <p className="chooseLogin">{en.chooseLogin}</p>
-            {getLinkToRegister()}
+            {getLinkToLogin()}
           </div>
         </div>
         </div>

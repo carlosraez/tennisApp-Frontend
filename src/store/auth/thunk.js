@@ -15,7 +15,7 @@ export const checkingRegisterAuthentication = ({name, email, password }) => {
       const resp = await RegisterApi(name, email, password);
       if (resp.ok === false) {
         console.log(resp.errors);
-        dispatch(checkingCredentials(resp.message));
+       return dispatch(checkingCredentials(resp.message));
       }
       localStorage.setItem('token', resp.token);
       localStorage.setItem('token-init-time', new Date().getTime());

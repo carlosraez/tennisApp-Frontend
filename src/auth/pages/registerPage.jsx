@@ -6,6 +6,7 @@ import './auth.css';
 import logoRaquet from '../../assets/raquetsLogo.jpg';
 import { en } from '../../i18n/index';
 import { checkingRegisterAuthentication } from '../../store/auth/thunk';
+import { checkingCredentials } from '../../store/auth/authSlice';
 import { InputsForm } from '../components/inputsForm';
 
 export const RegisterPage = () => {
@@ -56,7 +57,9 @@ export const RegisterPage = () => {
     */
    const timeCheckingMessage = () => {
     if (errorMessage) {
-     const msg = ''
+      console.log('me ejcuto');
+      const msg = ''
+      console.log(msg);
       setTimeout(() => {
         dispatch(checkingCredentials(msg));
       }, 3000);
@@ -77,8 +80,7 @@ export const RegisterPage = () => {
       name: 'name',
       value: name,
       errorMessage: en.errorInputName,
-      required: true,
-      pattern: '^[a-zA-Z\-]{3,15}',
+      pattern: '/^[a-zA-Z ]+$/{3-20}',
     },
     {
       label: en.inputLabelUser,
@@ -89,7 +91,6 @@ export const RegisterPage = () => {
       name: 'email',
       value: email,
       errorMessage: en.errorInputEmail,
-      required: true,
     },
     {
       label: en.passwordCreate,
@@ -97,9 +98,8 @@ export const RegisterPage = () => {
       placeholder: en.inputPlaceHolderPasswrod,
       ariaLabel: 'userPassword',
       value: password,
-      required: true,
       errorMessage: en.errorInputPassword,
-      pattern: '^[0-9]{3,6}/*$',
+      pattern: '^[0-9]{6,6}/*$',
       name: 'password',
     },
     {

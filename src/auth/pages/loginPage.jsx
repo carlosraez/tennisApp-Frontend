@@ -70,13 +70,11 @@ export const LoginPage = () => {
     {
       label: en.inputLabelUser,
       type: 'email',
-      required: true,
       placeholder: en.inputPlaceHolderMail,
       ariaLabel: 'userEmail',
       name: 'email',
       value: email,
       errorMessage: en.errorInputEmail,
-      required: true,
     },
     {
       label: en.passwordCreate,
@@ -84,7 +82,6 @@ export const LoginPage = () => {
       placeholder: en.inputPlaceHolderPasswrod,
       ariaLabel: 'userPassword',
       value: password,
-      required: true,
       errorMessage: en.errorInputPassword,
       pattern: '^[0-9]{3,6}/*$',
       name: 'password',

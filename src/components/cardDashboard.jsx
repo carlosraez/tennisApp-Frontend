@@ -9,7 +9,7 @@ export const CardDashboard = ({registerImage, title, description, textLink, link
          <div className="card-body">
          <h5 className="card-title">{title}</h5>
          <p className="card-text">{description}</p>
-      <Link to={linkHref} linkHref className="btn btn-primary">{textLink}</Link>
+      <Link to={linkHref} className="btn btn-primary">{textLink}</Link>
      </div>
     </div>
   )

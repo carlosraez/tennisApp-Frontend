@@ -79,7 +79,8 @@ export const RegisterPage = () => {
       name: 'name',
       value: name,
       errorMessage: en.errorInputName,
-      pattern: '/^[a-zA-Z ]+$/{3-20}',
+      pattern: '^[A-z]{3,16}/*$',
+      required: true,
     },
     {
       label: en.inputLabelUser,
@@ -89,6 +90,7 @@ export const RegisterPage = () => {
       name: 'email',
       value: email,
       errorMessage: en.errorInputEmail,
+      required: true,
     },
     {
       label: en.passwordCreate,
@@ -99,6 +101,7 @@ export const RegisterPage = () => {
       errorMessage: en.errorInputPassword,
       pattern: '^[0-9]{6,6}/*$',
       name: 'password',
+      required: true,
     },
     {
       label: en.repitePassword,
@@ -109,6 +112,7 @@ export const RegisterPage = () => {
       errorMessage: en.errorInputConfirmPassword,
       pattern: password,
       name: 'confirmPassword',
+      required: true,
     },
   ];
 
@@ -143,7 +147,7 @@ export const RegisterPage = () => {
   const getFormInputs = () => {
     return (
       <InputsForm
-       inputsFormLogin={inputsFormRegister}  
+       inputsForm={inputsFormRegister}  
        handleInputChange={handleInputChange}
        handleFocus={handleFocus}
        focused={focused}

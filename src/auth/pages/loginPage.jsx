@@ -75,6 +75,7 @@ export const LoginPage = () => {
       name: 'email',
       value: email,
       errorMessage: en.errorInputEmail,
+      required: true,
     },
     {
       label: en.passwordCreate,
@@ -85,6 +86,7 @@ export const LoginPage = () => {
       errorMessage: en.errorInputPassword,
       pattern: '^[0-9]{3,6}/*$',
       name: 'password',
+      required: true,
     },
   ];
  
@@ -120,7 +122,7 @@ export const LoginPage = () => {
   const getFormInputs = () => {
     return (
     <InputsForm
-     inputsFormLogin={inputsFormLogin}  
+     inputsForm={inputsFormLogin}  
      handleInputChange={handleInputChange}
      handleFocus={handleFocus}
      focused={focused}

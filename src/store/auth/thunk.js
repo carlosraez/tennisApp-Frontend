@@ -70,12 +70,14 @@ export const checkAuthToken = () => {
   return async dispatch => { 
     const token = localStorage.getItem('token');
     if (!token) {
+     localStorage.clear();
      return dispatch(onLogout());
     }
     try {
       dispatch(checkingCredentials());
       const resp = await renewTokenApi(token);
       if (resp.ok === false) { 
+      localStorage.clear();
       return dispatch(onLogout());
       }
       dispatch(onLogin({

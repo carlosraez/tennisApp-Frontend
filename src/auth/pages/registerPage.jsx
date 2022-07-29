@@ -7,7 +7,7 @@ import logoRaquet from '../../assets/raquetsLogo.jpg';
 import { en } from '../../i18n/index';
 import { checkingRegisterAuthentication } from '../../store/auth/thunk';
 import { checkingCredentials } from '../../store/auth/authSlice';
-import { InputsForm } from '../components/inputsForm';
+import { InputsForm } from '../../components/inputsForm';
 
 export const RegisterPage = () => {
   const [formValid, setFormValid] = useState(false);
@@ -142,7 +142,7 @@ export const RegisterPage = () => {
    */
   const getFormInputs = () => {
     return (
-      <InputsForm 
+      <InputsForm
        inputsFormLogin={inputsFormRegister}  
        handleInputChange={handleInputChange}
        handleFocus={handleFocus}

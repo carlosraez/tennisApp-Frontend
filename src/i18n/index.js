@@ -30,4 +30,5 @@ export const en = {
   loaderMessage: 'Loading...',
   titleLogin: 'Login now',
   logoutTextButton: 'Logout',
+  titleRegisterPlayer: 'Complete the Player form',
 };

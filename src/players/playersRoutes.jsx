@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Dashboard, Players } from './pages';
-import { Navbar } from './components/navbar';
-
+import { Navbar } from '../components/navBar';
 
 /**
 * @description - This function is used to render the login page routes
@@ -12,9 +11,9 @@ export const PlayersRoutes = () => {
   <>
     <Navbar/>
     <Routes>
-      <Route path="dashboard" element={<Dashboard />} />
-      <Route path="players" element={<Players />} />
-      <Route path="player-register" element={<Players />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/players" element={<Players />} />
+      <Route path="/player-register" element={<Players />} />
       <Route path="/*" element={<Navigate to="/dashboard" />} />
     </Routes>
   </>

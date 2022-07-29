@@ -1,16 +1,19 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 
-import tennisAppLogo from '../../assets/raquetsLogo.jpg';
-import { en } from '../../i18n';
-import { onLogout } from '../../store/auth/authSlice';
-
-
+import tennisAppLogo from '../assets/raquetsLogo.jpg';
+import { en } from '../i18n';
+import { onLogout } from '../store/auth/authSlice';
 
 export const Navbar = () => {
 
   const dispatch = useDispatch();
   const { user } = useSelector(state => state.auth);
+
+  const handleLogout = () => { 
+    localStorage.clear();
+    dispatch(onLogout());
+  }
 
   return (
   <div className="container-fluid">
@@ -23,7 +26,7 @@ export const Navbar = () => {
       <input className="form-control me-2" type="search" placeholder="Search Player" aria-label="Search" />
       <button className="btn btn-outline-success" type="submit">Search</button>
     </form>
-    <button onClick={() =>dispatch(onLogout())} className="btn btn-outline-danger" type="submit">{en.logoutTextButton}</button>
+    <button onClick={handleLogout} className="btn btn-outline-danger" type="submit">{en.logoutTextButton}</button>
    </nav>
    </div>
   )

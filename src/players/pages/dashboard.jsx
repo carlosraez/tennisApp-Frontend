@@ -1,7 +1,7 @@
 import React from 'react'
 
 import registerImage from '../../assets/registerPlayer.jpg';
-import { CardDashboard } from '../components/cardDashboard';
+import { CardDashboard } from '../../components/cardDashboard';
 
 export const Dashboard = () => {
 

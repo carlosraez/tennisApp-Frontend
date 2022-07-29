@@ -29,8 +29,16 @@ export const InputsForm = ({ inputsForm, focused,handleInputChange, handleFocus 
     */
    const getSelectInput = (input) => { 
       return (
-      <select pattern={input.pattern} name={input.name}  aria-label={input.ariaLabel} focused={focused.toString()} onBlur={handleFocus} onChange={handleInputChange} className="form-select">
-       <option defaultValue>{en.selectInputInfo}</option>
+      <select 
+        pattern={input.pattern}
+        name={input.name} 
+        required={input.required}  
+        aria-label={input.ariaLabel} 
+        focused={focused.toString()} 
+        onBlur={handleFocus} 
+        onChange={handleInputChange}
+        className="form-select">
+       <option value="">{en.selectInputInfo}</option>
        {input.options.map((option, index) => {
           return (
             <option value={option} key={index}>{option}</option>

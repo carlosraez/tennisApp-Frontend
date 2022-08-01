@@ -10,12 +10,19 @@ const BaseUrl = `${VITE_API_URL}/player/`
  * @param {string} password 
  * @returns {object} user object
  */
-export const SavePlayerApi = async (playerTennis) => {
-  const resp = await  fetch(`${VITE_API_URL}player/create`,{
+export const savePlayerApi = async ({name, tennisShot, location, birthday, level}, token) => {
+  const resp = await  fetch(`${VITE_API_URL}players/create`,{
     method: 'POST',
-    body: JSON.stringify({name, email, password}),
+    body: JSON.stringify({
+      name,
+      tennisShot,
+      location,
+      birthday,
+      level,
+    }),
     headers:{
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      "x-token": token,
     } 
 })
 const  data = await resp.json()

@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 
 import { InputsForm } from '../../components/inputsForm';
 import { en } from '../../i18n';
+import { addPlayer } from '../../store/player';
 
 export const Players = () => {
   const [formValid, setFormValid] = useState(false);
@@ -14,6 +15,11 @@ export const Players = () => {
     level:'',
     });
   const [focused, setfocused] = useState(false)
+
+  useEffect(() => {
+    formValidations()
+  }, [formValues]);
+  
 
   const dispatch = useDispatch();
   const inputRef = useRef();
@@ -66,11 +72,10 @@ export const Players = () => {
     {
       label: en.selectLevel,
       isSelect: true,
-      ariaLabel: 'SelectLevel',
-      name: 'selectLevel',
+      ariaLabel: 'level',
+      name: 'level',
       value: level,
-      errorMessage: en.errorBirthDayInput,
-      pattern: '/([^\s])/',
+      errorMessage: en.errorSelectInput,
       options:  [ en.begginer,en.intermediate ,en.advanced, en.tournament ],
       required: true,
     }
@@ -78,7 +83,22 @@ export const Players = () => {
 
   const hanldeFormPlayer = (e) => {
     e.preventDefault();
-    console.log(formValues);
+    if (formValid) {
+      dispatch(addPlayer(formValues));
+      setFormValues({
+        name:'',
+        tennisShot:'',
+        location:'',
+        birthday:'',
+        level:'',
+      });
+    }
+  }
+
+  const formValidations = () => { 
+    const form = inputRef.current
+    const inputsInvalid = form.querySelectorAll('input:invalid');
+    inputsInvalid.length === 0 ? setFormValid(true) : setFormValid(false);
   }
 
   /**
@@ -98,13 +118,14 @@ export const Players = () => {
       setfocused(true)
    }
 
+
    /**
    * Button save form player
    * @returns {JSX.Element}
    */
   const getSavePlayerButton = () => {
     return (
-      <button onClick={hanldeFormPlayer}  type="submit" className="btn btn-primary mt-3">
+      <button type="submit" className="btn btn-primary mt-3">
         {en.titleSavePlayer}
       </button>
     );
@@ -180,13 +201,12 @@ export const Players = () => {
       )
   }
 
-
   return (
       <div className="container">
         <div className="row">
           <h1>{en.titleRegisterPlayer}</h1>
           <div className="col-xs-100 col-md-6">
-            <form>
+            <form ref={inputRef} onSubmit={hanldeFormPlayer}>
               {getFormRegisterPlayer()}
               {getSavePlayerButton()}
             </form>

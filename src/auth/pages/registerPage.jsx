@@ -136,7 +136,7 @@ export const RegisterPage = () => {
   const getFormSubmit = e => {
     e.preventDefault();
     if (formValid) {
-     dispatch(checkingRegisterAuthentication(formValues));
+      dispatch(checkingRegisterAuthentication(formValues));
      }
   };
 

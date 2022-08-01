@@ -38,6 +38,16 @@
     input:invalid[focused="true"] {
      border: 1px solid red 
     }
+
+    select:invalid[focused="true"] {
+      border: 1px solid red 
+     }
+
+     select:invalid[focused="true"] ~ span{
+      color: red;
+      font-weight: 600;
+      display: block;
+   }
    
     input:invalid[focused="true"] ~ span{
        color: red;

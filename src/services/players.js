@@ -1,17 +1,16 @@
 import { getEnvVariables  } from '../helpers/getEnvVariables'
 
 const { VITE_API_URL } = getEnvVariables()
-const BaseUrl = `${VITE_API_URL}/player/`
+const BaseUrl = `${VITE_API_URL}players/`
 
 /**
- * @describe Register with email and password to the API
- * @param {string} name - User name
- * @param {string} email 
- * @param {string} password 
- * @returns {object} user object
+ * @describe Save Player to API
+ * @param {object}  - Tennis Player 
+ * @param {string}  - Token
+ * @returns {object} data object
  */
 export const savePlayerApi = async ({name, tennisShot, location, birthday, level}, token) => {
-  const resp = await  fetch(`${VITE_API_URL}players/create`,{
+  const resp = await  fetch(`${BaseUrl}create`,{
     method: 'POST',
     body: JSON.stringify({
       name,
@@ -29,3 +28,19 @@ const  data = await resp.json()
 return data
 }
 
+/**
+ * @describe Get all players from the API
+ * @param {string} token - token
+ * @returns {object} user object
+ */
+export const getPlayersApi = async (token) => {
+  const resp = await  fetch(`${BaseUrl}getPlayers`,{
+    method: 'GET',
+    headers:{
+      'Content-Type': 'application/json',
+      "x-token": token,
+    } 
+})
+const  data = await resp.json()
+return data
+}

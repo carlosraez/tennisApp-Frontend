@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux/es/exports';
 
 import registerImage from '../../assets/registerPlayer.jpg';
 import { CardDashboard } from '../../components/cardDashboard';
+import { getPlayers } from '../../store/player/thunk';
 
 export const Dashboard = () => {
 
- 
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getPlayers());
+  }, [])
+  
   return (
     <div className="container">
       <div className="row">

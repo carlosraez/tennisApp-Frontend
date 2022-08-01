@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 
 import { InputsForm } from '../../components/inputsForm';
+import { ListPlayers } from '../../components/listPlayers';
 import { en } from '../../i18n';
 import { addPlayer } from '../../store/player';
 
@@ -20,7 +21,7 @@ export const Players = () => {
     formValidations()
   }, [formValues]);
   
-
+  const players  = useSelector(state => state.player.players);
   const dispatch = useDispatch();
   const inputRef = useRef();
 
@@ -131,17 +132,6 @@ export const Players = () => {
     );
   };
 
-  /**
-  * Button delete player off table
-  * @returns {JSX.Element}
-  */
-  const getDeletePlayerButton = () => {
-    return (
-      <button className="btn btn-danger btn-sm">
-        {en.titleDeletePlayer}
-      </button>
-    );
-  };
 
   const getFormRegisterPlayer = () => { 
      return (
@@ -153,6 +143,8 @@ export const Players = () => {
         />
      )
   } 
+
+  
   
   /**
    * @describe - Table list off tenis in data base
@@ -168,35 +160,20 @@ export const Players = () => {
             <th scope="col">Shot</th>
             <th scope="col">Location</th>
             <th scope="col">Level</th>
+            <th scope="col">Update</th>
             <th scope="col">Delete</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>{getDeletePlayerButton()}</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>2</td>
-            <td>{getDeletePlayerButton()}</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>2</td>
-            <td>{getDeletePlayerButton()}</td>
-          </tr>
-        </tbody>
+         <tbody>
+            {players.map((player, index) => {
+              return (
+                <ListPlayers 
+                index={index}
+                player={player}
+                />
+              )
+            })}
+         </tbody>
       </table>
       )
   }

@@ -54,4 +54,5 @@ export const en = {
   playerName: 'Player Name',
   inputLabelUserName: 'Write Tennis Player',
   errorSelectInput: 'Please select a option',
+  titleUpdatePlayer: 'Update Player',
 };

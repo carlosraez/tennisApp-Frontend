@@ -1,7 +1,7 @@
 import { savePlayerApi } from '../../services/players';
 import { onSavePlayer } from './playerSlice';
 
-export const addPlayer = (playerTennis) => {
+export const addPlayer = (tennisPlayer) => {
     return  (dispatch, getState) => {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -9,7 +9,7 @@ export const addPlayer = (playerTennis) => {
          return dispatch(onLogout());
         }
          try {
-            const newPlayer = {...playerTennis};
+            const newPlayer = {...tennisPlayer};
             savePlayerApi(newPlayer, token)
             dispatch(onSavePlayer(newPlayer));
          } catch (error) {

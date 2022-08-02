@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { en } from '../i18n';
 
-export const InputsForm = ({ inputsForm, focused,handleInputChange, handleFocus }) => {
-   
+export const InputsForm = ({ inputsForm, focused,handleInputChange, handleFocus, isUpdate }) => {
    const getInput = (input) => {
      return (
       <input
@@ -27,7 +26,7 @@ export const InputsForm = ({ inputsForm, focused,handleInputChange, handleFocus 
     * @param {array} input data
     * @returns select input
     */
-   const getSelectInput = (input) => { 
+   const getSelectInput = (input) => {
       return (
       <select 
         pattern={input.pattern}
@@ -38,12 +37,11 @@ export const InputsForm = ({ inputsForm, focused,handleInputChange, handleFocus 
         onBlur={handleFocus} 
         onChange={handleInputChange}
         className="form-select">
-       <option value="">{en.selectInputInfo}</option>
-       {input.options.map((option, index) => {
-          return (
-            <option value={option} key={index}>{option}</option>
-          )
-       })}
+       <option  value={isUpdate ? input.value : ''}>{isUpdate ? input.value : en.selectInputInfo}</option>
+       {input.options.map((option, index) => 
+            input.value !== option 
+            ? <option key={index} value={option}>{option}</option>
+            : null)}
       </select>
       )
    }

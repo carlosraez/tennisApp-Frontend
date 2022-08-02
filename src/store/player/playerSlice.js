@@ -28,11 +28,16 @@ export const playerSlice = createSlice({
       const player = actions.payload;
       const index = state.players.findIndex(p => p.name === player.name);
       state.players.splice(index, 1);
+    },
+    onUpdatePlayer: (state ,actions) => { 
+      const player = actions.payload;
+      const index = state.players.findIndex(p => p.name === player.name);
+      state.players[index] = player;
     }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { onSavePlayer, onGetPlayers, onDeletePlayer} = playerSlice.actions;
+export const { onSavePlayer, onGetPlayers, onDeletePlayer, onUpdatePlayer} = playerSlice.actions;
 
 export default playerSlice.reducer;

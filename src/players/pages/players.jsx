@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 import { InputsForm } from '../../components/inputsForm';
 import { ListPlayers } from '../../components/listPlayers';
 import { en } from '../../i18n';
-import { addPlayer, deletePlayerList } from '../../store/player';
+import { addPlayer, deletePlayerList, updatePlayer } from '../../store/player';
 
 export const Players = () => {
   const [formValid, setFormValid] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
   const [formValues, setFormValues] = useState({
     name:'',
     tennisShot:'',
@@ -86,7 +87,13 @@ export const Players = () => {
   const hanldeFormPlayer = (e) => {
     e.preventDefault();
     if (formValid) {
-      dispatch(addPlayer(formValues));
+      if (isUpdate) { 
+        dispatch(updatePlayer(formValues));
+        setIsUpdate(false);
+       } 
+       if (!isUpdate) {
+        dispatch(addPlayer(formValues));
+       }
       setFormValues({
         name:'',
         tennisShot:'',
@@ -97,6 +104,10 @@ export const Players = () => {
     }
   }
 
+  /**
+   * @description - Validates the form and set the state of the form
+   * @returns {void}
+   */
   const formValidations = () => { 
     const form = inputRef.current
     const inputsInvalid = form.querySelectorAll('input:invalid');
@@ -140,6 +151,8 @@ export const Players = () => {
   const getFormRegisterPlayer = () => { 
      return (
        <InputsForm 
+         tennisShot={formValues.tennisShot}
+         isUpdate={isUpdate}
          inputsForm={inputsFormPlayer}  
          handleInputChange={handleInputChange}
          handleFocus={handleFocus}
@@ -156,6 +169,23 @@ export const Players = () => {
     const id = e.target.id;
     const tennisPlayerDelete = players[id] 
     dispatch(deletePlayerList(tennisPlayerDelete));
+  }
+
+  /**
+   * @description - This funcion is por update a player
+   * @param {any} e event to prevent default 
+   */
+  const handleUpdatePlayer = (e) => {
+    setIsUpdate(true);
+    const id = e.target.id;
+    const tennisPlayerUpdate = players[id] 
+    setFormValues({
+      name: tennisPlayerUpdate.name,
+      tennisShot: tennisPlayerUpdate.tennisShot,
+      location: tennisPlayerUpdate.location,
+      birthday: tennisPlayerUpdate.birthday,
+      level: tennisPlayerUpdate.level,
+    })
   }
 
   
@@ -185,6 +215,7 @@ export const Players = () => {
                 index={index}
                 player={player}
                 handleDelete={handleDeletePlayer}
+                handleUpdate={handleUpdatePlayer}
                 />
               )
             })}
@@ -192,7 +223,7 @@ export const Players = () => {
       </table>
       )
   }
-
+  
   return (
       <div className="container">
         <div className="row">

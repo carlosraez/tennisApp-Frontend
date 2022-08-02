@@ -1,7 +1,7 @@
 import React from 'react';
 import { en } from '../i18n';
 
-export const ListPlayers = ({ player, index, handleDelete  }) => {
+export const ListPlayers = ({ player, index, handleDelete, handleUpdate }) => {
     const { name, tennisShot, location, level, } = player;
 
 /**
@@ -24,7 +24,7 @@ const getDeletePlayerButton = (index) => {
 */
  const getUpdatePlayerButton = () => {
     return (
-        <button className="btn btn-warning btn-sm">
+        <button onClick={handleUpdate} id={index} className="btn btn-warning btn-sm">
         {en.titleUpdatePlayer}
         </button>
     );
@@ -37,7 +37,7 @@ const getDeletePlayerButton = (index) => {
         <td>{tennisShot}</td>
         <td>{location}</td>
         <td>{level}</td>
-        <td>{getUpdatePlayerButton()}</td>
+        <td>{getUpdatePlayerButton(index)}</td>
         <td>{getDeletePlayerButton(index)}</td>
     </tr>
   )

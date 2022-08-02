@@ -57,3 +57,16 @@ export const deletePlayerApi = async (id, token) => {
 const  data = await resp.json()
 return data
 }
+
+export const updatePlayerApi = async ({id, name, tennisShot, location, birthday, level}, token) => { 
+  const resp = await  fetch(`${BaseUrl}updatePlayer`,{
+    method: 'PUT',
+    body: JSON.stringify({id, name, tennisShot, location, birthday, level}),
+    headers:{
+      'Content-Type': 'application/json',
+      "x-token": token,
+    }
+})
+const  data = await resp.json()
+return data
+}

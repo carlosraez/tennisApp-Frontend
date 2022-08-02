@@ -1,4 +1,4 @@
-import { savePlayerApi, getPlayersApi, deletePlayerApi } from '../../services/players';
+import { savePlayerApi, getPlayersApi, deletePlayerApi, updatePlayerApi} from '../../services/players';
 import { onSavePlayer, onGetPlayers, onDeletePlayer, onUpdatePlayer } from './playerSlice';
 
 export const addPlayer = (tennisPlayer) => {
@@ -61,7 +61,7 @@ export const updatePlayer = (tennisPlayer) => {
         }
          try {
             const playerToUpdate = tennisPlayer;
-            //updatePlayerApi(playerToUpdate, token)
+            updatePlayerApi(playerToUpdate, token)
             dispatch(onUpdatePlayer(playerToUpdate));
          } catch (error) {
             console.log(error); 

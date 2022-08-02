@@ -44,7 +44,7 @@ export const InputsForm = ({ inputsForm, focused,handleInputChange, handleFocus,
             : null)}
       </select>
       )
-   }
+  }
 
     /**
      * @description - Returns the inputs form, and choose if select input or regular input

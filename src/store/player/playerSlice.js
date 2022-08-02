@@ -16,18 +16,23 @@ export const playerSlice = createSlice({
     },
     onGetPlayers: (state ,actions) => {
       state.isLoadingPlayers = false;
-      const { players } = actions.payload;
+      const  players  = actions.payload;
       players.forEach(player => { 
-        const exists = state.players.some(p => p.id === player.id);
+        const exists = state.players.some(p => p.name === player.name);
         if (!exists) {
           state.players.push(player);
         }
       });
+    },
+    onDeletePlayer: (state ,actions) => { 
+      const player = actions.payload;
+      const index = state.players.findIndex(p => p.name === player.name);
+      state.players.splice(index, 1);
     }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { onSavePlayer, onGetPlayers} = playerSlice.actions;
+export const { onSavePlayer, onGetPlayers, onDeletePlayer} = playerSlice.actions;
 
 export default playerSlice.reducer;

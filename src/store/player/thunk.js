@@ -1,5 +1,5 @@
-import { savePlayerApi, getPlayersApi } from '../../services/players';
-import { onSavePlayer, onGetPlayers } from './playerSlice';
+import { savePlayerApi, getPlayersApi, deletePlayerApi } from '../../services/players';
+import { onSavePlayer, onGetPlayers, onDeletePlayer } from './playerSlice';
 
 export const addPlayer = (tennisPlayer) => {
     return  (dispatch) => {
@@ -27,7 +27,25 @@ export const getPlayers = () => {
         }
          try {
             const players = await getPlayersApi(token);
-            dispatch(onGetPlayers(players));
+            const tennisPlayers = players.players
+            dispatch(onGetPlayers(tennisPlayers));
+         } catch (error) {
+            console.log(error); 
+        }    
+    }
+}
+
+export const deletePlayerList = (tennisPlayer) => { 
+    return (dispatch) => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+         localStorage.clear();
+         return dispatch(onLogout());
+        }
+         try {
+            const playerToDelete = tennisPlayer._id;
+            deletePlayerApi(playerToDelete, token)
+            dispatch(onDeletePlayer(tennisPlayer));
          } catch (error) {
             console.log(error); 
         }    

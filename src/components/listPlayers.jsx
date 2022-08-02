@@ -1,16 +1,17 @@
 import React from 'react';
 import { en } from '../i18n';
 
-export const ListPlayers = ({ player, index }) => {
-    const { name, tennisShot, location, level, deletePlayer } = player;
+export const ListPlayers = ({ player, index, handleDelete  }) => {
+    const { name, tennisShot, location, level, } = player;
 
 /**
 * Button delete player off table
 * @returns {JSX.Element}
 */
-const getDeletePlayerButton = () => {
+const getDeletePlayerButton = (index) => {
+    
     return (
-        <button className="btn btn-danger btn-sm">
+        <button onClick={handleDelete} id={index} className="btn btn-danger btn-sm">
         {en.titleDeletePlayer}
         </button>
     );
@@ -32,12 +33,12 @@ const getDeletePlayerButton = () => {
   return (
     <tr key={name}>
         <th scope="row">{index + 1}</th>
-                <td>{name}</td>
-                <td>{tennisShot}</td>
-                <td>{location}</td>
-                <td>{level}</td>
-                <td>{getUpdatePlayerButton()}</td>
-                <td>{getDeletePlayerButton()}</td>
+        <td>{name}</td>
+        <td>{tennisShot}</td>
+        <td>{location}</td>
+        <td>{level}</td>
+        <td>{getUpdatePlayerButton()}</td>
+        <td>{getDeletePlayerButton(index)}</td>
     </tr>
   )
 }

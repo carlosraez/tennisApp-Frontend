@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { Link } from 'react-router-dom';
 
 import { InputsForm } from '../../components/inputsForm';
 import { ListPlayers } from '../../components/listPlayers';
 import { en } from '../../i18n';
-import { addPlayer } from '../../store/player';
+import { addPlayer, deletePlayerList } from '../../store/player';
 
 export const Players = () => {
   const [formValid, setFormValid] = useState(false);
@@ -132,7 +133,10 @@ export const Players = () => {
     );
   };
 
-
+  /**
+   * @description - This function is used to show all the form inputs to register a new player
+   * @returns {JSX.Element}
+   */
   const getFormRegisterPlayer = () => { 
      return (
        <InputsForm 
@@ -143,6 +147,16 @@ export const Players = () => {
         />
      )
   } 
+
+  /**
+   * @describe - This function is used to delete a player from the list
+   * @param {any} e event to prevent default
+   */
+  const handleDeletePlayer = (e) => {
+    const id = e.target.id;
+    const tennisPlayerDelete = players[id] 
+    dispatch(deletePlayerList(tennisPlayerDelete));
+  }
 
   
   
@@ -170,6 +184,7 @@ export const Players = () => {
                 <ListPlayers 
                 index={index}
                 player={player}
+                handleDelete={handleDeletePlayer}
                 />
               )
             })}
@@ -181,6 +196,7 @@ export const Players = () => {
   return (
       <div className="container">
         <div className="row">
+          <Link color="inherit" to="/dashboard">{en.backToDashboard}</Link>
           <h1>{en.titleRegisterPlayer}</h1>
           <div className="col-xs-100 col-md-6">
             <form ref={inputRef} onSubmit={hanldeFormPlayer}>

@@ -44,3 +44,16 @@ export const getPlayersApi = async (token) => {
 const  data = await resp.json()
 return data
 }
+
+export const deletePlayerApi = async (id, token) => { 
+  const resp = await  fetch(`${BaseUrl}deletePlayer`,{
+    method: 'DELETE',
+    body: JSON.stringify({id}),
+    headers:{
+      'Content-Type': 'application/json',
+      "x-token": token,
+    }
+})
+const  data = await resp.json()
+return data
+}

@@ -55,4 +55,5 @@ export const en = {
   inputLabelUserName: 'Write Tennis Player',
   errorSelectInput: 'Please select a option',
   titleUpdatePlayer: 'Update Player',
+  backToDashboard: 'Back to Dashboard',
 };

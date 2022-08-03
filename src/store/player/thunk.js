@@ -1,8 +1,9 @@
 import { savePlayerApi, getPlayersApi, deletePlayerApi, updatePlayerApi} from '../../services/players';
-import { onSavePlayer, onGetPlayers, onDeletePlayer, onUpdatePlayer } from './playerSlice';
+import { onSavePlayer, onGetPlayers, onDeletePlayer, onUpdatePlayer, checkingPlayers } from './playerSlice';
 
 export const addPlayer = (tennisPlayer) => {
-    return  (dispatch) => {
+    return async (dispatch) => {
+        dispatch(checkingPlayers());
         const token = localStorage.getItem('token');
         if (!token) {
          localStorage.clear();
@@ -10,8 +11,12 @@ export const addPlayer = (tennisPlayer) => {
         }
          try {
             const newPlayer = {...tennisPlayer};
-            savePlayerApi(newPlayer, token)
-            dispatch(onSavePlayer(newPlayer));
+            const resp = await savePlayerApi(newPlayer, token)
+            if (!resp.ok) {
+             return dispatch(checkingPlayers(resp.message));
+            }
+            dispatch(onSavePlayer(newPlayer));    
+            
          } catch (error) {
             console.log(error); 
         }    
@@ -20,6 +25,7 @@ export const addPlayer = (tennisPlayer) => {
 
 export const getPlayers = () => {
     return async (dispatch) => {
+        dispatch(checkingPlayers());
         const token = localStorage.getItem('token');
         if (!token) {
          localStorage.clear();
@@ -27,6 +33,7 @@ export const getPlayers = () => {
         }
          try {
             const players = await getPlayersApi(token);
+            if (!players.ok) { return dispatch(checkingPlayers(players.message)) }
             const tennisPlayers = players.players
             dispatch(onGetPlayers(tennisPlayers));
          } catch (error) {
@@ -36,7 +43,8 @@ export const getPlayers = () => {
 }
 
 export const deletePlayerList = (tennisPlayer) => { 
-    return (dispatch) => {
+    return async (dispatch) => {
+        dispatch(checkingPlayers());
         const token = localStorage.getItem('token');
         if (!token) {
          localStorage.clear();
@@ -44,7 +52,8 @@ export const deletePlayerList = (tennisPlayer) => {
         }
          try {
             const playerToDelete = tennisPlayer._id;
-            deletePlayerApi(playerToDelete, token)
+            const resp = await deletePlayerApi(playerToDelete, token)
+            if (!resp.ok) { return dispatch(checkingPlayers(resp.message)) }
             dispatch(onDeletePlayer(tennisPlayer));
          } catch (error) {
             console.log(error); 
@@ -52,16 +61,20 @@ export const deletePlayerList = (tennisPlayer) => {
     }
 }
 
-export const updatePlayer = (tennisPlayer) => { 
-    return (dispatch) => {
+export const updatePlayer = (tennisPlayer, id) => { 
+    return async (dispatch) => {
+        dispatch(checkingPlayers());
         const token = localStorage.getItem('token');
         if (!token) {
          localStorage.clear();
          return dispatch(onLogout());
         }
          try {
+            const playerId = id;
             const playerToUpdate = tennisPlayer;
-            updatePlayerApi(playerToUpdate, token)
+            const resp = await updatePlayerApi(playerToUpdate,playerId, token)
+            if (!resp.ok) { return dispatch(checkingPlayers(resp.message))}
+            console.log('me ejecuto');
             dispatch(onUpdatePlayer(playerToUpdate));
          } catch (error) {
             console.log(error); 

@@ -41,8 +41,9 @@ export const RegisterPage = () => {
    * @description - This function is used put the focus on the input when the page is loaded and load errors messages
    * @returns {void}
    */
-  const handleFocus = () => { 
-     setfocused(true)
+  const handleFocus = (e) => { 
+    const inputName = e.target.name;
+    setfocused({input:inputName ,status:true})
   }
 
    useEffect(() => {
@@ -57,7 +58,6 @@ export const RegisterPage = () => {
     */
    const timeCheckingMessage = () => {
     if (errorMessage) {
-      console.log('me ejcuto');
       const msg = ''
       console.log(msg);
       setTimeout(() => {

@@ -39,8 +39,9 @@ export const LoginPage = () => {
    * @description - This function is used put the focus on the input when the page is loaded and load errors messages
    * @returns {void}
    */
-  const handleFocus = () => { 
-     setfocused(true)
+  const handleFocus = (e) => { 
+    const inputName = e.target.name;
+    setfocused({input:inputName ,status:true})
   }
 
    useEffect(() => {

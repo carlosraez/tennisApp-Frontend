@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 
 import { InputsForm } from '../../components/inputsForm';
 import { ListPlayers } from '../../components/listPlayers';
+import { Spinner } from '../../components/spinner';
 import { en } from '../../i18n';
 import { addPlayer, deletePlayerList, updatePlayer } from '../../store/player';
 
 export const Players = () => {
   const [formValid, setFormValid] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [playerToUpdate, setPlayerToUpdate] = useState('')
   const [formValues, setFormValues] = useState({
     name:'',
     tennisShot:'',
@@ -23,7 +25,7 @@ export const Players = () => {
     formValidations()
   }, [formValues]);
   
-  const players  = useSelector(state => state.player.players);
+  const {players , isLoadingPlayers }   = useSelector(state => state.player);
   const dispatch = useDispatch();
   const inputRef = useRef();
 
@@ -88,8 +90,10 @@ export const Players = () => {
     e.preventDefault();
     if (formValid) {
       if (isUpdate) { 
-        dispatch(updatePlayer(formValues));
+        console.log('me ejecuto is update');
+        dispatch(updatePlayer(formValues, playerToUpdate));
         setIsUpdate(false);
+        setPlayerToUpdate('');
        } 
        if (!isUpdate) {
         dispatch(addPlayer(formValues));
@@ -127,8 +131,9 @@ export const Players = () => {
    * @description - This function is used put the focus on the input when the page is loaded and load errors messages
    * @returns {void}
    */
-    const handleFocus = () => { 
-      setfocused(true)
+    const handleFocus = (e) => { 
+      const inputName = e.target.name;
+      setfocused({input:inputName ,status:true})
    }
 
 
@@ -179,6 +184,7 @@ export const Players = () => {
     setIsUpdate(true);
     const id = e.target.id;
     const tennisPlayerUpdate = players[id] 
+    setPlayerToUpdate(tennisPlayerUpdate._id)
     setFormValues({
       name: tennisPlayerUpdate.name,
       tennisShot: tennisPlayerUpdate.tennisShot,
@@ -201,6 +207,7 @@ export const Players = () => {
           <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
+            <th scope="col">BirthDay</th>
             <th scope="col">Shot</th>
             <th scope="col">Location</th>
             <th scope="col">Level</th>
@@ -236,7 +243,7 @@ export const Players = () => {
             </form>
           </div>
           <div className="col-xs-100 col-md-6">
-              {getListPlayers()}
+              {isLoadingPlayers ? <Spinner /> : getListPlayers()}
           </div>
         </div>
      </div>

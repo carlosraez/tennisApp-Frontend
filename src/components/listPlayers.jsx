@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { en } from '../i18n';
 
 export const ListPlayers = ({ player, index, handleDelete, handleUpdate }) => {
-    const { name, tennisShot, location, level, } = player;
+    const { name, tennisShot, location, level, birthday, } = player;
 
 /**
 * Button delete player off table
@@ -34,6 +35,7 @@ const getDeletePlayerButton = (index) => {
     <tr key={name}>
         <th scope="row">{index + 1}</th>
         <td>{name}</td>
+        <td>{birthday}</td>
         <td>{tennisShot}</td>
         <td>{location}</td>
         <td>{level}</td>
@@ -43,6 +45,12 @@ const getDeletePlayerButton = (index) => {
   )
 }
 
+ListPlayers.propTypes = {
+    player: PropTypes.object,
+    index: PropTypes.number,
+    handleDelete: PropTypes.func,
+    handleUpdate : PropTypes.func,
+  };
 
 
 

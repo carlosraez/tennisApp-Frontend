@@ -7,6 +7,7 @@ import { PlayersRoutes } from '../players/playersRoutes';
 import { checkAuthToken  } from '../store/auth/thunk';
 
 import { en } from '../i18n';
+import { Spinner } from '../components/spinner';
 
 
 export const AppRouter = () => {
@@ -17,20 +18,6 @@ export const AppRouter = () => {
   useEffect(() => {
     dispatch(checkAuthToken());
   }, [])
-
-  /**
-   * @description - This function is used to render a spinner loading when the user is checking the token
-   * @returns {jsx} 
-   */
-  const getSpinner = () => { 
-    return (
-      <div className="d-flex justify-content-center">
-        <div className="spinner-border" role="status">
-         <span className="visually-hidden">{en.loaderMessage}</span>
-        </div>
-      </div>
-    );
-  }
 
   /**
    * @describe - render app routes depending on the status of the user
@@ -53,7 +40,7 @@ export const AppRouter = () => {
 
   return (
       status === 'checking' && errorMessage === undefined ?
-      getSpinner() 
+      <Spinner />
       : 
       getRoutes()
   );

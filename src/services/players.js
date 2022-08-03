@@ -45,6 +45,12 @@ const  data = await resp.json()
 return data
 }
 
+/**
+ * @describe Delete a player from the API
+ * @param {string} token - token
+ * @param {id} string - id of player 
+ * @returns {object} user object
+ */
 export const deletePlayerApi = async (id, token) => { 
   const resp = await  fetch(`${BaseUrl}deletePlayer`,{
     method: 'DELETE',
@@ -58,10 +64,16 @@ const  data = await resp.json()
 return data
 }
 
-export const updatePlayerApi = async ({id, name, tennisShot, location, birthday, level}, token) => { 
+/**
+ * @describe Update Player
+ * @param {string} token - token
+ * @param {player} object - a player will be update 
+ * @returns {object} user object
+ */
+export const updatePlayerApi = async ({ tennisShot, location, birthday, level}, id, token) => { 
   const resp = await  fetch(`${BaseUrl}updatePlayer`,{
     method: 'PUT',
-    body: JSON.stringify({id, name, tennisShot, location, birthday, level}),
+    body: JSON.stringify({ tennisShot, location, birthday, level, id}),
     headers:{
       'Content-Type': 'application/json',
       "x-token": token,

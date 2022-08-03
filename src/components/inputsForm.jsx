@@ -6,6 +6,7 @@ export const InputsForm = ({ inputsForm, focused,handleInputChange, handleFocus,
    const getInput = (input) => {
      return (
       <input
+        disabled={isUpdate && input.name === 'name'} 
         className="form-control"
         name={input.name}
         type={input.type}
@@ -14,7 +15,7 @@ export const InputsForm = ({ inputsForm, focused,handleInputChange, handleFocus,
         value={input.value}
         onChange={handleInputChange }
         onBlur={handleFocus}
-        focused={focused.toString()}
+        focused={focused.input === input.name ?  'true' : 'false'}
         pattern={input.pattern}
         required={input.required}
        />
@@ -33,15 +34,17 @@ export const InputsForm = ({ inputsForm, focused,handleInputChange, handleFocus,
         name={input.name} 
         required={input.required}  
         aria-label={input.ariaLabel} 
-        focused={focused.toString()} 
+        focused={focused.input === input.name ?  'true' : 'false'} 
         onBlur={handleFocus} 
         onChange={handleInputChange}
         className="form-select">
        <option  value={isUpdate ? input.value : ''}>{isUpdate ? input.value : en.selectInputInfo}</option>
        {input.options.map((option, index) => 
+            isUpdate ?
             input.value !== option 
             ? <option key={index} value={option}>{option}</option>
-            : null)}
+            : null :
+             <option key={index} value={option}>{option}</option>)}
       </select>
       )
   }

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 
-import './auth.css';
+import  styles  from './auth.module.scss';
 import logoRaquet from '../../assets/raquetsLogo.jpg';
 import { en } from '../../i18n/index';
 import { checkingLoginAuthentication } from '../../store/auth/thunk';
@@ -135,7 +135,7 @@ export const LoginPage = () => {
    */
   const getLoginButton = () => {
     return (
-      <button disabled={!formValid} type="submit" className="w-80 btn btn-lg btn-primary button-Sign">
+      <button disabled={!formValid} type="submit" className={`w-80 btn btn-lg btn-primary ${styles.buttonSign}`}>
         {en.titleLogin}
       </button>
     );
@@ -148,7 +148,7 @@ export const LoginPage = () => {
    */
   const getLinkToLogin = () => {
     return (
-      <p className="linkGoToResgister">
+      <p className={styles.linkGoToResgister}>
         <Link color="inherit" to="/auth/register">
           {en.notHaveAccount}
         </Link>
@@ -187,7 +187,7 @@ export const LoginPage = () => {
   };
   
   return (
-    <div className="w-100 m-auto containerLogin">
+    <div className={`w-100 m-auto ${styles.containerLogin}`}>
       <form ref={inputRef} onSubmit={getFormSubmit}>
         <div className='container'>
           <div className='row'> 
@@ -199,7 +199,7 @@ export const LoginPage = () => {
           <div className='col-xs-100 col-md-6'>
             <h1>{en.titleRegister}</h1>
             {getLogo()}
-            <p className="chooseLogin">{en.chooseLogin}</p>
+            <p className={styles.chooseLogin}>{en.chooseLogin}</p>
             {getLinkToLogin()}
           </div>
         </div>

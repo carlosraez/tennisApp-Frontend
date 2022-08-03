@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { Link } from 'react-router-dom';
 
+import styles from './players.module.scss';
 import { InputsForm } from '../../components/inputsForm';
 import { ListPlayers } from '../../components/listPlayers';
 import { Spinner } from '../../components/spinner';
@@ -90,7 +91,6 @@ export const Players = () => {
     e.preventDefault();
     if (formValid) {
       if (isUpdate) { 
-        console.log('me ejecuto is update');
         dispatch(updatePlayer(formValues, playerToUpdate));
         setIsUpdate(false);
         setPlayerToUpdate('');
@@ -242,8 +242,8 @@ export const Players = () => {
               {getSavePlayerButton()}
             </form>
           </div>
-          <div className="col-xs-100 col-md-6">
-              {isLoadingPlayers ? <Spinner /> : getListPlayers()}
+          <div className={`col-xs-100 col-md-6 ${isLoadingPlayers ?  styles.isLoadingSpinner : '' }`}>
+              {isLoadingPlayers ? <Spinner /> : getListPlayers() }
           </div>
         </div>
      </div>

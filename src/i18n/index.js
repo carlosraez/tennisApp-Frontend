@@ -56,4 +56,12 @@ export const en = {
   errorSelectInput: 'Please select a option',
   titleUpdatePlayer: 'Update Player',
   backToDashboard: 'Back to Dashboard',
+  welcome:'Welcome',
+  namePlayerTable: 'Name',
+  levelPlayerTable: 'Level',
+  locationPlayerTable: 'Location',
+  bestTennisShotTable: 'Best Shot',
+  birthdayTable: 'Birthday',
+  ButtonUpdateTable: 'Update',
+  ButtonDeleteTable: 'Delete',
 };

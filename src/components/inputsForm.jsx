@@ -66,7 +66,7 @@ export const InputsForm = ({ inputsForm, focused,handleInputChange, handleFocus,
 
 InputsForm.propTypes = {
   inputsFormLogin: PropTypes.array,
-  focused: PropTypes.bool,
+  focused: PropTypes.object,
   handleInputChange: PropTypes.func,
   handleFocus: PropTypes.func,
 };

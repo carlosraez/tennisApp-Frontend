@@ -32,7 +32,7 @@ const getDeletePlayerButton = (index) => {
  }
 
   return (
-    <tr key={name}>
+    <tr >
         <th scope="row">{index + 1}</th>
         <td>{name}</td>
         <td>{birthday}</td>

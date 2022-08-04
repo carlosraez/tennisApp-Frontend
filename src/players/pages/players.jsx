@@ -20,18 +20,19 @@ export const Players = () => {
     birthday:'',
     level:'',
     });
-  const [focused, setfocused] = useState(false)
+  const [focused, setfocused] = useState({input: '', status: false})
+
+  const {players , isLoadingPlayers}   = useSelector(state => state.player);
+  const dispatch = useDispatch();
+  const inputRef = useRef();
+  
+
+  const {name, tennisShot, location, birthday, level } = formValues;
 
   useEffect(() => {
     formValidations()
   }, [formValues]);
-  
-  const {players , isLoadingPlayers }   = useSelector(state => state.player);
-  const dispatch = useDispatch();
-  const inputRef = useRef();
-
-  const {name, tennisShot, location, birthday, level } = formValues;
-
+   
   const inputsFormPlayer = [
     {
       label: en.inputLabelUserName,
@@ -95,16 +96,8 @@ export const Players = () => {
         setIsUpdate(false);
         setPlayerToUpdate('');
        } 
-       if (!isUpdate) {
-        dispatch(addPlayer(formValues));
-       }
-      setFormValues({
-        name:'',
-        tennisShot:'',
-        location:'',
-        birthday:'',
-        level:'',
-      });
+       if (!isUpdate) { dispatch(addPlayer(formValues));}
+       reStartValues()
     }
   }
 
@@ -136,6 +129,20 @@ export const Players = () => {
       setfocused({input:inputName ,status:true})
    }
 
+   /**
+    * @description - this function re-start the values off the form
+    * @returns {void}
+    */
+   const reStartValues = () => { 
+    setFormValues({
+      name:'',
+      tennisShot:'',
+      location:'',
+      birthday:'',
+      level:'',
+    });
+    setfocused({input: '', status: false}) 
+   }
 
    /**
    * Button save form player
@@ -174,6 +181,7 @@ export const Players = () => {
     const id = e.target.id;
     const tennisPlayerDelete = players[id] 
     dispatch(deletePlayerList(tennisPlayerDelete));
+    reStartValues()
   }
 
   /**
@@ -202,23 +210,24 @@ export const Players = () => {
    */
   const getListPlayers = () => {
       return (
-        <table className="table">
+        <table className="table responsive">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">BirthDay</th>
-            <th scope="col">Shot</th>
-            <th scope="col">Location</th>
-            <th scope="col">Level</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
+            <th scope="col">{en.namePlayerTable}</th>
+            <th scope="col">{en.birthdayTable}</th>
+            <th scope="col">{en.bestTennisShotTable}</th>
+            <th scope="col">{en.locationPlayerTable}</th>
+            <th scope="col">{en.levelPlayerTable}</th>
+            <th scope="col">{en.ButtonUpdateTable}</th>
+            <th scope="col">{en.ButtonDeleteTable}</th>
           </tr>
         </thead>
          <tbody>
             {players.map((player, index) => {
               return (
-                <ListPlayers 
+                <ListPlayers
+                key={player._id} 
                 index={index}
                 player={player}
                 handleDelete={handleDeletePlayer}

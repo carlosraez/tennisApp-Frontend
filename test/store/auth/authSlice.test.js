@@ -1,5 +1,5 @@
 import { authSlice, onLogin, onLogout } from '../../../src/store/auth/authSlice';
-import { authenticatedState, initialState } from '../__fixtures__/authStates';
+import { authenticatedState, initialState, notAuthenticatedState } from '../__fixtures__/authStates';
 import { testUserCredentials } from '../__fixtures__/testUserCredentials';
 
 describe('testing at auth Slice', () => { 
@@ -20,11 +20,12 @@ describe('testing at auth Slice', () => {
      })
 
     test('should be checking credentials', () => {
-        const state = authSlice.reducer(initialState, authSlice.actions.checkingCredentials('error message'))
+        const messegeError = 'Invalid credentials';
+        const state = authSlice.reducer(notAuthenticatedState, authSlice.actions.checkingCredentials(messegeError))
         expect(state).toEqual({
             status: 'checking',
             user: {},
-            errorMessage: 'error message',
+            errorMessage: messegeError,
         });
      })
  })

@@ -1,7 +1,7 @@
 import { getEnvVariables  } from '../helpers/getEnvVariables'
 
 const { VITE_API_URL } = getEnvVariables()
-const BaseUrl = `${VITE_API_URL}/auth/`
+const BaseUrl = `${VITE_API_URL}auth/`
 
 /**
  * @describe Register with email and password to the API
@@ -11,7 +11,7 @@ const BaseUrl = `${VITE_API_URL}/auth/`
  * @returns {object} user object
  */
 export const RegisterApi = async (name ,email, password) => {
-  const resp = await  fetch(`${VITE_API_URL}auth/create`,{
+  const resp = await  fetch(`${BaseUrl}create`,{
     method: 'POST',
     body: JSON.stringify({name, email, password}),
     headers:{
@@ -29,7 +29,7 @@ return data
  * @returns user object
  */
 export const loginApi = async (email, password) => {
-const resp = await  fetch(`${VITE_API_URL}auth/login`,{
+const resp = await  fetch(`${BaseUrl}login`,{
         method: 'POST',
         body: JSON.stringify({email, password}),
         headers:{
@@ -46,7 +46,7 @@ return data
  * @returns {object} user data
  */
 export const renewTokenApi = async (token) => { 
-  const resp = await  fetch(`${VITE_API_URL}auth/renewtoken`,{
+  const resp = await  fetch(`${BaseUrl}renewtoken`,{
     method: 'Get',
     headers:{
       'Content-Type': 'application/json',

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux/es/exports';
+import { useDispatch } from 'react-redux';
 
 import registerImage from '../../assets/registerPlayer.jpg';
 import { CardDashboard } from '../../components/cardDashboard';
@@ -13,7 +13,7 @@ export const Dashboard = () => {
   }, [])
   
   return (
-    <div className="container">
+    <div aria-label='dashboardApp' className="container">
       <div className="row">
         <div className="col-md-6">
           <CardDashboard 

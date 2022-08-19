@@ -1,5 +1,5 @@
 
-import { render as rtlRender } from "@testing-library/react"
+import { render as rtlRender, screen } from "@testing-library/react"
 import { Provider } from "react-redux"
 import  { MemoryRouter } from "react-router-dom"
 
@@ -17,8 +17,8 @@ const render = component =>
 
 
 describe('test att players dashboard', () => { 
-    test('should be show the dashboard equals', () => {
-        const { container } = render(<Dashboard  />)
-        expect(container).toMatchSnapshot()
+    test('should be show 2 images', () => {
+         render(<Dashboard />)
+         expect(screen.getAllByRole('img').length).toBe(2)
     })   
 })

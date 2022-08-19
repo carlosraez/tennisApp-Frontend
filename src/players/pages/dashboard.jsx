@@ -13,7 +13,7 @@ export const Dashboard = () => {
   }, [])
   
   return (
-    <div aria-label='dashboardApp' className="container">
+    <div className="container">
       <div className="row">
         <div className="col-md-6">
           <CardDashboard 
@@ -21,7 +21,7 @@ export const Dashboard = () => {
             registerImage={registerImage}
             title={'Register Player'}
             description={'Register a new player'}
-            textLink={'Register'}
+            textLink={'Go'}
             />
         </div>
         <div className="col-md-6">

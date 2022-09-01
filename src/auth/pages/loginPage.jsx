@@ -15,7 +15,7 @@ export const LoginPage = () => {
     email:'',
     password:'',
   });
-  const [focused, setfocused] = useState(false)
+  const [focused, setfocused] = useState({})
 
   const dispatch = useDispatch();
   const inputRef = useRef();

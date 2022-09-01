@@ -12,7 +12,7 @@ export const InputsForm = ({ inputsForm, focused,handleInputChange, handleFocus,
         type={input.type}
         placeholder={input.placeholder}
         aria-label={input.ariaLabel}
-        value={input.value}
+        defaultValue={input.value}
         onChange={handleInputChange }
         onBlur={handleFocus}
         focused={focused.input === input.name ?  'true' : 'false'}
@@ -38,13 +38,13 @@ export const InputsForm = ({ inputsForm, focused,handleInputChange, handleFocus,
         onBlur={handleFocus} 
         onChange={handleInputChange}
         className="form-select">
-       <option  value={isUpdate ? input.value : ''}>{isUpdate ? input.value : en.selectInputInfo}</option>
+       <option  defaultValue={isUpdate ? input.value : ''}>{isUpdate ? input.value : en.selectInputInfo}</option>
        {input.options.map((option, index) => 
             isUpdate ?
             input.value !== option 
-            ? <option key={index} value={option}>{option}</option>
+            ? <option key={index} defaultValue={option}>{option}</option>
             : null :
-             <option key={index} value={option}>{option}</option>)}
+             <option key={index} defaultValue={option}>{option}</option>)}
       </select>
       )
   }

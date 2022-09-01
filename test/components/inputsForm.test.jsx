@@ -71,7 +71,7 @@ describe('should be change value off inputs', () => {
         }
       ]
      test('should be inputs at form Players', () => { 
-        render(<InputsForm inputsForm={inputsFormPlayer} focused={"location"} />)
+        render(<InputsForm inputsForm={inputsFormPlayer} focused={{}} />)
         
         const inputBirthDayPlayer = screen.getByLabelText('BirthDayPlayer')
         expect(inputBirthDayPlayer).toBeTruthy()

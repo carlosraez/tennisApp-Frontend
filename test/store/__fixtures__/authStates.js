@@ -20,3 +20,10 @@ export const notAuthenticatedState = {
     user: { },
     errorMessage: null,
 }
+
+export const demoUser = {
+    name: 'Carlos Raez',
+    email: 'carlosraez@gmail.com',
+    password: '123456',
+    token: '3r44r5'
+}
